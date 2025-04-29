@@ -24,13 +24,8 @@
         zoom: 12,
         function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 37.7749, lng: -122.4194 }, // Example coordinates
-        zoom: 12,
-        gestureHandling: "greedy", // Allows one-finger panning
-        zoomControl: true,         // Adds zoom buttons for better usability
-        disableDoubleClickZoom: true, // Prevents accidental zooming on double-tap
-        scrollwheel: true,          // Enables smooth scrolling for zooming
-        mapTypeControl: true        // Adds map type toggle (e.g., satellite view)
+        center: { lat: 37.7749, lng: -122.4194 },
+        zoom: 12
     });
 }
 
