@@ -1,31 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Driving for Dollars</title>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS-pTAXtUQiNc4rzCJxhkJRK7fJMDJRHo"></script>
-  <style>
-    #map {
-      height: 100%; 
-      width: 100%; 
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
+    <title>Driving for Dollars</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS-pTAXtUQiNc4rzCJxhkJRK7fJMDJRHo&libraries=places&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+        #searchBox {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-  <div id="map"></div>
-  <script>
-    function initMap() {
-      const map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 37.7749, lng: -122.4194 }, // Example: San Francisco
-        zoom: 12
-      });
-    }
-    window.onload = initMap;
-  </script>
+    <input id="searchBox" type="text" placeholder="Enter a property address">
+    <div id="map"></div>
+
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 37.7749, lng: -122.4194 }, // Default to San Francisco
+                zoom: 12
+            });
+
+            // Create search box
+            var searchBox = new google.maps.places.SearchBox(document.getElementById('searchBox'));
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchBox);
+
+            // Listener for address search
+            searchBox.addListener('places_changed', function() {
+                var places = searchBox.getPlaces();
+                if (places.length === 0) return;
+
+                var location = places[0].geometry.location;
+                map.setCenter(location);
+
+                // Add marker for the selected property
+                new google.maps.Marker({
+                    position: location,
+                    map: map
+                });
+            });
+        }
+    </script>
 </body>
 </html>
 
