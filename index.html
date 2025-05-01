@@ -30,6 +30,26 @@
                 gestureHandling: 'greedy' // Enables one-finger scroll
             });
         
+            function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 33.8361, lng: -81.1637 }, // South Carolina
+        zoom: 7,
+        mapTypeId: 'hybrid',
+        gestureHandling: 'greedy'
+    });
+
+    // Listen for user clicks on the map
+    map.addListener("click", function(event) {
+        var clickedLocation = event.latLng;
+        retrievePropertyData(clickedLocation);
+    });
+}
+
+function retrievePropertyData(location) {
+    console.log("User clicked at:", location.lat(), location.lng());
+    alert("Fetching data for location: " + location.lat() + ", " + location.lng());
+}
+
             // Create Autocomplete for search input
             var input = document.getElementById('searchBox');
             var autocomplete = new google.maps.places.Autocomplete(input);
