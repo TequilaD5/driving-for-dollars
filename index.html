@@ -22,25 +22,24 @@
     <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 37.7749, lng: -122.4194 }, // Default to San Francisco
+                center: { lat: 33.8361, lng: -81.1637 }, // South Carolina, USA
                 zoom: 12
             });
 
-            // Create search box
-            var searchBox = new google.maps.places.SearchBox(document.getElementById('searchBox'));
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchBox);
+            // Create Autocomplete for search input
+            var input = document.getElementById('searchBox');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+    
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) return;
 
-            // Listener for address search
-            searchBox.addListener('places_changed', function() {
-                var places = searchBox.getPlaces();
-                if (places.length === 0) return;
+                // Center map on selected place
+                map.setCenter(place.geometry.location);
 
-                var location = places[0].geometry.location;
-                map.setCenter(location);
-
-                // Add marker for the selected property
+                // Add marker
                 new google.maps.Marker({
-                    position: location,
+                    position: place.geometry.location,
                     map: map
                 });
             });
