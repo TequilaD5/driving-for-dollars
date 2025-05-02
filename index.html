@@ -55,7 +55,7 @@
             var input = document.getElementById('searchBox');
             var autocomplete = new google.maps.places.PlaceAutocompleteElement(input);
     
-            autocomplete.addListener('place_changed', function() {
+            autocomplete.addEventListener('place_changed', function() {
                 autocomplete.getPlaceAsync().then(function(place) {
                     if (!place.geometry) return;
 
