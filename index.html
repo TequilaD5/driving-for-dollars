@@ -36,6 +36,12 @@
     <input id="searchBox" type="text" placeholder="Enter a property address">
     <div id="map"></div>
 
+    <div id="property-sidebar">
+    <p><strong>Address:</strong> <span id="property-address">N/A</span></p>
+    <p><strong>Owner Name:</strong> <span id="property-owner">N/A</span></p>
+    <p><strong>Mailing Address:</strong> <span id="property-mailing">N/A</span></p>
+</div>
+
     <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -73,7 +79,7 @@
         function retrievePropertyData(location) {
                 var apiUrl = `https://api.batchleads.io/v1/property-search?lat=${location.lat()}&lng=${location.lng()}&apikey=6deb32d6-2422-45f8-b809-f38201f22833`;
 
-            fetch(https://hooks.zapier.com/hooks/catch/21940866/2pxgz50/", {
+            fetch("https://hooks.zapier.com/hooks/catch/21940866/2pxgz50/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ lat: location.lat(), lng: location.lng() })
@@ -89,9 +95,10 @@
                 .catch(error => console.error("Error fetching property data:", error));
     }
     function displayPropertyDetails(property) {
-        document.getElementById("property-address").textContent = property.address;
-        document.getElementById("property-owner").textContent = property.ownerName;
-        document.getElementById("property-mailing").textContent = property.mailingAddress;
+        document.getElementById("property-address").textContent = property.address || "N/A";
+        document.getElementById("property-owner").textContent = property.owner_name || "N/A";
+        document.getElementById("property-mailing").textContent = property.mail_address || "N/A";
+        
         document.getElementById("property-sidebar").style.display = "block";
 }
 
