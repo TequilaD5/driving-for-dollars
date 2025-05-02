@@ -15,7 +15,6 @@
             padding: 10px;
             margin-bottom: 10px;
         }
-        
         #property-sidebar {
             display: none; /* Initially hidden */
             position: fixed;
@@ -77,12 +76,12 @@
         });
 
         function retrievePropertyData(location) {
-                var apiUrl = `https://api.batchleads.io/v1/property-search?lat=${location.lat()}&lng=${location.lng()}&apikey=6deb32d6-2422-45f8-b809-f38201f22833`;
+                var apiUrl = "https://api.batchleads.io/v1/property-search?lat=${location.lat()}&lng=${location.lng()}&apikey=6deb32d6-2422-45f8-b809-f38201f22833";
 
             fetch("https://hooks.zapier.com/hooks/catch/21940866/2pxgz50/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ lat: location.lat(), lng: location.lng() })
+                body: JSON.stringify({ lat: location.lat(), lng: location.lng() }));
             })   
                 .then(response => response.json())
                 .then(data => {
