@@ -56,7 +56,7 @@
         }
 
         function retrievePropertyData(location) {
-            var apiUrl = `https://api.propertyapi.com/v1/properties?lat=${location.lat()}&lng=${location.lng()}&apikey=6deb32d6-2422-45f8-b809-f38201f22833`;
+                var apiUrl = `https://api.batchleads.io/v1/property-search?lat=${location.lat()}&lng=${location.lng()}&apikey=6deb32d6-2422-45f8-b809-f38201f22833`;
 
             fetch(apiUrl)
                 .then(response => response.json())
@@ -70,11 +70,12 @@
                 .catch(error => console.error("Error fetching property data:", error));
     }
     function displayPropertyDetails(property) {
-        document.querySelector("[custom-type='property-address']").textContent = property.address;
-        document.querySelector("[custom-type='property-owner']").textContent = property.ownerName;
-        document.querySelector("[custom-type='property-mailing']").textContent = property.mailingAddress;
-
+        document.getElementById("property-address").textContent = property.address;
+        document.getElementById("property-owner").textContent = property.ownerName;
+        document.getElementById("property-mailing").textContent = property.mailingAddress;
         document.getElementById("property-sidebar").style.display = "block";
+}
+
     }
 
     </script>
