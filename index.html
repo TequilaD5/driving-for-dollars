@@ -53,17 +53,17 @@
 
             // Create Autocomplete for search input
             var input = document.getElementById('searchBox');
-            var autocomplete = new google.maps.places.Autocomplete(input);
+            var autocomplete = new google.maps.places.PlaceAutocompleteElement(input);
     
             autocomplete.addListener('place_changed', function() {
-                var place = autocomplete.getPlace();
-                if (!place.geometry) return;
+                autocomplete.getPlaceAsync().then(function(place) {
+                    if (!place.geometry) return;
 
                 // Center map on selected place
                 map.setCenter(place.geometry.location);
 
                 // Add marker
-                new google.maps.Marker({
+                new google.maps.AdvancedMarkerElement({
                     position: place.geometry.location,
                     map: map
                 });
