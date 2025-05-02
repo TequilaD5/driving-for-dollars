@@ -68,12 +68,12 @@
                     map: map
                 });
             });
-        }
+        });
 
         function retrievePropertyData(location) {
                 var apiUrl = `https://api.batchleads.io/v1/property-search?lat=${location.lat()}&lng=${location.lng()}&apikey=6deb32d6-2422-45f8-b809-f38201f22833`;
 
-            fetch("https://hooks.zapier.com/hooks/catch/https://hooks.zapier.com/hooks/catch/21940866/2pxgz50/", {
+            fetch(https://hooks.zapier.com/hooks/catch/21940866/2pxgz50/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ lat: location.lat(), lng: location.lng() })
