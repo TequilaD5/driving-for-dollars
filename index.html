@@ -56,9 +56,27 @@
         }
 
         function retrievePropertyData(location) {
-            console.log("User clicked at:", location.lat(), location.lng());
-            alert("Fetching data for location: " + location.lat() + ", " + location.lng());
-        }
+            var apiUrl = `https://api.propertyapi.com/v1/properties?lat=${location.lat()}&lng=${location.lng()}&apikey=6deb32d6-2422-45f8-b809-f38201f22833`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.property) {
+                        displayPropertyDetails(data.property);
+                    } else {
+                        alert("No property data found at this location.");
+                    }
+                })
+                .catch(error => console.error("Error fetching property data:", error));
+    }
+    function displayPropertyDetails(property) {
+        document.querySelector("[custom-type='property-address']").textContent = property.address;
+        document.querySelector("[custom-type='property-owner']").textContent = property.ownerName;
+        document.querySelector("[custom-type='property-mailing']").textContent = property.mailingAddress;
+
+        document.getElementById("property-sidebar").style.display = "block";
+    }
+
     </script>
 </body>
 </html>
