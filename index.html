@@ -35,12 +35,6 @@
                 var clickedLocation = event.latLng;
                 retrievePropertyData(clickedLocation);
             });
-        }
-
-        function retrievePropertyData(location) {
-            console.log("User clicked at:", location.lat(), location.lng());
-            alert("Fetching data for location: " + location.lat() + ", " + location.lng());
-        }
 
             // Create Autocomplete for search input
             var input = document.getElementById('searchBox');
@@ -59,6 +53,11 @@
                     map: map
                 });
             });
+        }
+
+        function retrievePropertyData(location) {
+            console.log("User clicked at:", location.lat(), location.lng());
+            alert("Fetching data for location: " + location.lat() + ", " + location.lng());
         }
     </script>
 </body>
