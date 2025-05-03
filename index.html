@@ -54,7 +54,19 @@
                 center: { lat: 33.836082, lng: -81.163727 }, // ✅ South Carolina Coordinates
                 zoom: 12,
                 mapTypeId: "satellite", // ✅ Default satellite view
-                gestureHandling: "greedy" // ✅ Allows tap-to-zoom & smooth gestures
+                gestureHandling: "greedy", // ✅ Enables tap-to-zoom & smooth gestures
+                styles: [
+                    {
+                        featureType: "administrative",
+                        elementType: "geometry",
+                        stylers: [{ visibility: "on" }, { color: "#3f51b5" }]
+                    },
+                    {
+                        featureType: "road",
+                        elementType: "geometry",
+                        stylers: [{ visibility: "simplified" }, { color: "#ffffff" }]
+                    }
+                ] // ✅ Adds state boundaries & road grids
             });
 
             var input = document.getElementById("searchBox");
@@ -66,7 +78,7 @@
 
                     map.setCenter(place.geometry.location);
 
-                    // ✅ Add a pin marker when selecting a location
+                    // ✅ Ensure a pin marker appears on selected location
                     new google.maps.marker.AdvancedMarkerElement({
                         position: place.geometry.location,
                         map: map
@@ -102,6 +114,7 @@
     </script>
 </body>
 </html>
+
 
 
 
