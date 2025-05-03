@@ -46,7 +46,7 @@
         <p><strong>Mailing Address:</strong> <span id="property-mailing">N/A</span></p>
     </div>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS-pTAXtUQiNc4rzCJxhkJRK7fJMDJRHo&libraries=places&callback=initMap"></script>
 
     <script>
         function initMap() {
@@ -77,7 +77,12 @@
         function retrievePropertyData(location) {
             var apiUrl = `https://api.batchleads.io/v1/property-search?lat=${location.lat()}&lng=${location.lng()}&apikey=6deb32d6-2422-45f8-b809-f38201f22833`;
 
-            fetch(apiUrl)
+            fetch("https://hooks.zapier.com/hooks/catch/21940866/2pxgz50/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ lat: location.lat(), lng: location.lng() })
+})
+
                 .then(response => response.json())
                 .then(property => {
                     displayPropertyDetails(property);
