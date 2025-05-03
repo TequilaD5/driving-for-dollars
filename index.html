@@ -57,16 +57,21 @@
                 gestureHandling: "greedy",
                 styles: [
                     {
-                        featureType: "administrative",
+                        featureType: "administrative.province",
                         elementType: "geometry",
-                        stylers: [{ visibility: "on" }, { color: "#3f51b5" }]
+                        stylers: [{ visibility: "on" }, { color: "#ff9800" }] // ✅ Highlights state boundaries
                     },
                     {
-                        featureType: "road",
+                        featureType: "road.highway",
                         elementType: "geometry",
-                        stylers: [{ visibility: "simplified" }, { color: "#ffffff" }]
+                        stylers: [{ visibility: "on" }, { color: "#ffffff" }] // ✅ Adds road grids
+                    },
+                    {
+                        featureType: "road.local",
+                        elementType: "geometry",
+                        stylers: [{ visibility: "on" }, { color: "#cccccc" }]
                     }
-                ] // ✅ Displays state boundaries & road grids
+                ]
             });
 
             var input = document.getElementById("searchBox");
@@ -81,7 +86,11 @@
                 // ✅ Pin marker added
                 new google.maps.Marker({
                     position: place.geometry.location,
-                    map: map
+                    map: map,
+                    icon: {
+                        url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // ✅ Adds a visible pin icon
+                        scaledSize: new google.maps.Size(40, 40) // ✅ Adjusts pin size
+                    }
                 });
 
                 retrievePropertyData(place.geometry.location);
@@ -113,6 +122,7 @@
     </script>
 </body>
 </html>
+
 
 
 
