@@ -9,7 +9,7 @@
         #map {
             height: 500px;
             width: 100%;
-            touch-action: auto; /* ✅ Allows one-finger scroll on mobile */
+            touch-action: auto; /* ✅ Allows one-finger scroll */
         }
 
         #searchBox {
@@ -19,18 +19,18 @@
         }
 
         #property-sidebar {
-            display: none; /* ✅ Initially hidden */
+            display: none;
             position: fixed;
             right: 0;
             top: 0;
             width: 300px;
-            height: 100vh; /* Full height */
+            height: 100vh;
             background: white;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
             padding: 20px;
-            overflow-y: auto; /* ✅ Allows scrolling */
+            overflow-y: auto;
             border-left: 2px solid #ddd;
-            z-index: 1000; /* ✅ Ensures it's above other elements */
+            z-index: 1000;
         }
     </style>
 </head>
@@ -51,10 +51,10 @@
     <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 33.836082, lng: -81.163727 }, // ✅ South Carolina Coordinates
+                center: { lat: 33.836082, lng: -81.163727 },
                 zoom: 12,
-                mapTypeId: "satellite", // ✅ Default satellite view
-                gestureHandling: "greedy", // ✅ Enables tap-to-zoom & smooth gestures
+                mapTypeId: "satellite",
+                gestureHandling: "greedy",
                 styles: [
                     {
                         featureType: "administrative",
@@ -66,26 +66,25 @@
                         elementType: "geometry",
                         stylers: [{ visibility: "simplified" }, { color: "#ffffff" }]
                     }
-                ] // ✅ Adds state boundaries & road grids
+                ] // ✅ Displays state boundaries & road grids
             });
 
             var input = document.getElementById("searchBox");
-            var autocomplete = new google.maps.places.PlaceAutocompleteElement({ inputElement: input });
+            var autocomplete = new google.maps.places.Autocomplete(input);
 
-            autocomplete.addEventListener("place_changed", function() {
-                autocomplete.getPlaceAsync().then(function(place) {
-                    if (!place.geometry) return;
+            autocomplete.addListener("place_changed", function() {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) return;
 
-                    map.setCenter(place.geometry.location);
+                map.setCenter(place.geometry.location);
 
-                    // ✅ Ensure a pin marker appears on selected location
-                    new google.maps.marker.AdvancedMarkerElement({
-                        position: place.geometry.location,
-                        map: map
-                    });
-
-                    retrievePropertyData(place.geometry.location);
+                // ✅ Pin marker added
+                new google.maps.Marker({
+                    position: place.geometry.location,
+                    map: map
                 });
+
+                retrievePropertyData(place.geometry.location);
             });
         }
 
@@ -114,6 +113,7 @@
     </script>
 </body>
 </html>
+
 
 
 
