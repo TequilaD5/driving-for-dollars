@@ -56,7 +56,7 @@
             });
 
             var input = document.getElementById("searchBox");
-            var autocomplete = new google.maps.places.PlaceAutocompleteElement(input);
+            var autocomplete = new google.maps.places.PlaceAutocompleteElement({ inputElement: input });
 
             autocomplete.addEventListener('place_changed', function() {
                 autocomplete.getPlaceAsync().then(function(place) {
