@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driving for Dollars</title>
-    
+
     <style>
         #map {
             height: 500px;
             width: 100%;
-            touch-action: auto; /* Allows one-finger scroll on mobile */
+            touch-action: auto; /* ✅ Allows one-finger scroll on mobile */
         }
-        
+
         #searchBox {
             width: 100%;
             padding: 10px;
@@ -19,7 +19,7 @@
         }
 
         #property-sidebar {
-            display: none; /* Initially hidden */
+            display: none; /* ✅ Initially hidden */
             position: fixed;
             right: 0;
             top: 0;
@@ -28,9 +28,9 @@
             background: white;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
             padding: 20px;
-            overflow-y: auto; /* Allows scrolling */
+            overflow-y: auto; /* ✅ Allows scrolling */
             border-left: 2px solid #ddd;
-            z-index: 1000; /* Ensures it's above other elements */
+            z-index: 1000; /* ✅ Ensures it's above other elements */
         }
     </style>
 </head>
@@ -51,26 +51,25 @@
     <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 33.836082, lng: -81.163727 },
+                center: { lat: 33.836082, lng: -81.163727 }, // ✅ South Carolina Coordinates
                 zoom: 12,
-                mapTypeId: "satellite" // ✅ Enables default satellite view
+                mapTypeId: "satellite", // ✅ Default satellite view
                 gestureHandling: "greedy" // ✅ Allows tap-to-zoom & smooth gestures
             });
 
             var input = document.getElementById("searchBox");
             var autocomplete = new google.maps.places.PlaceAutocompleteElement({ inputElement: input });
 
-            autocomplete.addEventListener('place_changed', function() {
+            autocomplete.addEventListener("place_changed", function() {
                 autocomplete.getPlaceAsync().then(function(place) {
                     if (!place.geometry) return;
-                    
+
                     map.setCenter(place.geometry.location);
 
-                    // ✅ Add a pin marker
+                    // ✅ Add a pin marker when selecting a location
                     new google.maps.marker.AdvancedMarkerElement({
                         position: place.geometry.location,
                         map: map
-
                     });
 
                     retrievePropertyData(place.geometry.location);
@@ -85,13 +84,12 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ lat: location.lat(), lng: location.lng() })
-})
-
-                .then(response => response.json())
-                .then(property => {
-                    displayPropertyDetails(property);
-                })
-                .catch(error => console.error("Error retrieving property data:", error));
+            })
+            .then(response => response.json())
+            .then(property => {
+                displayPropertyDetails(property);
+            })
+            .catch(error => console.error("Error retrieving property data:", error));
         }
 
         function displayPropertyDetails(property) {
@@ -104,6 +102,7 @@
     </script>
 </body>
 </html>
+
 
 
 
